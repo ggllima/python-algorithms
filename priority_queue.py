@@ -1,5 +1,5 @@
 class Element():
-    def __init__(self, priority, element):
+    def __init__(self, priority, element = ''):
         self.priority = priority
         self.element = element
 
@@ -39,7 +39,28 @@ class PriorityQueue():
             return True
         return False
     
-    def show(self):
-        for element in self.queue:
-            print("%d %s"%(element.get_priority(), element.get_element()))
+    def return_objs(self):
+        return self.queue
+            
+
+            
+    def count_time(self, chosen_priority):
+        objects = self.queue.copy()
+        objects.reverse()
+        for obj in objects:
+            if obj.get_priority() ==  chosen_priority:
+                indice = objects.index(obj)
+        return len(objects) - indice
         
+        
+        
+tests = int(input())
+for test in range(tests):
+    p = PriorityQueue()
+    jobs, position = map(int, input().split())
+    priority = [int(priority) for priority in input().split(" ")]
+    for job in range(jobs):
+        e = Element(priority[job])
+        p.push(e)
+objs = p.return_objs()
+print(p.count_time(objs.index(objs[position])))
